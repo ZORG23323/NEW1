@@ -1,22 +1,28 @@
 import { Given, When, Then } from '@wdio/cucumber-framework';
-
-import LoginPage from '../pageobjects/login.page.js';
-import SecurePage from '../pageobjects/secure.page.js';
-
-const pages = {
-    login: LoginPage
+const Urlobj = new Map([
+    ["главную", "/"],
+    ["Тарифы", "/tariffs"],
+    ["Номера", "/shop/number"]
+])
+const selectors = {
+    tariffsCard: (tariffs) => `//h3[text()='${tariffs}']`,
+        header: "div.h1"
 }
 
-Given(/^I am on the (\w+) page$/, async (page) => {
-    await pages[page].open()
+Given(/^заходит на "([^"]*)" страницу Теле2$/, async (page) => {
+    await browser.url(`https://msk.tele2.ru${Urlobj.get(page)}`)
 });
 
-When(/^I login with (\w+) and (.+)$/, async (username, password) => {
-    await LoginPage.login(username, password)
+Then(/^нажимает на карточку тариф "([^"]*)"$/, async (tariffs) => {
+    await (await $(selectors.tariffsCard(tariffs))).click()
 });
 
-Then(/^I should see a flash message saying (.*)$/, async (message) => {
-    await expect(SecurePage.flashAlert).toBeExisting();
-    await expect(SecurePage.flashAlert).toHaveTextContaining("message");
+Then(/^открылась страница карточки "([^"]*)"$/, async (tariffs) => {
+    await browser.waitUntil(async () => {
+        return (await browser.getUrl()).includes(tariffs)
+    })
 });
 
+Then(/^отобразился заголовок "([^"]*)"$/, async (tariffs) => {
+    await expect(await $(selectors.header)).toHaveText(tariffs)
+});
