@@ -4,22 +4,32 @@ const Urlobj = new Map([
     ["Тарифы", "/tariffs"],
     ["Номера", "/shop/number"],
     ["Маркет Tele2", "/stock-exchange/internet"],
+    ["смартфоны", "/shop/devices/smartphones"],
+    ["корзина", "/shop/checkout"],
+    ["black", "black"],
+
 ])
 const selectors = {
     tariffsCard: (tariffs) => `//h3[text()='${tariffs}']`,
     header: "div.h1",
+
     GB: (quantity) => `//div[@class="lots-group-item"]//div//div//span[text()='${quantity}']`,
     priceLot: (price) => `//div[@class="amount"] [text()="${price}"]`,
     button: "a.btn.btn-black.btn-small",
     PopUp: "div.info-modal",
-    PopUpButtons: { 
+    ProductName: "span.order-item-2__product-name",
+    Quantity: "input.text-field.count",
+    CheckoutText: "span.text",
+    PopUpButtons: {
         Enter: "//a[@class='btn btn-black']",
-        Connect: "//a[@class='btn space-holder-xs-0'] ",
+        Connect: "//a[@class='btn space-holder-xs-0']",
         Cancel: "a.cancel",
-        Close: "a.icon-close"
-    }
-    
-
+        Close: "a.icon-close",
+        Continue: "//a[@class='btn']",
+        Delete: "button.order-item-2__item-remove.icon-t2-trash-24"
+        
+    },
+    buttonMobil: (smartfoon) => `//span[@class="title"][text()="${smartfoon}"]//..//..//div//div//a[@class="btn icon-basket"]`
 
 
 }
@@ -32,9 +42,9 @@ Then(/^нажимает на карточку тариф "([^"]*)"$/, async (tar
     await (await $(selectors.tariffsCard(tariffs))).click()
 });
 
-Then(/^открылась страница карточки "([^"]*)"$/, async (tariffs) => {
+Then(/^открылась страница "([^"]*)"$/, async (page) => {
     await browser.waitUntil(async () => {
-        return (await browser.getUrl()).includes(tariffs)
+        return (await browser.getUrl()).includes(Urlobj.get(page))
     })
 });
 
@@ -73,3 +83,46 @@ Then(/^отображается кнопка-ссылка Закрыть$/, asyn
 Then(/^отображается крестик$/, async () => {
     await (await $(selectors.PopUpButtons.Close)).waitForDisplayed()
 });
+
+
+Then(/^добавляем в корзину "([^"]*)"$/, async (smartfon) => {
+    await (await $(selectors.buttonMobil(smartfon))).click()
+});
+
+Then(/^отображается кнопка "([^"]*)"$/, async (buttonName) => {
+    await browser.waitUntil(async () => {
+        return await (await $(selectors.PopUpButtons.Enter)).getText() == buttonName
+    })
+})
+
+Then(/^отображается белая кнопка "([^"]*)"$/, async (buttonName) => {
+    await browser.waitUntil(async () => {
+        return await (await $(selectors.PopUpButtons.Continue)).getText() == buttonName
+    })
+})
+
+Then(/^нажимаем на кнопку Перейти к оформлению$/, async () => {
+    await (await $(selectors.PopUpButtons.Enter)).click()
+});
+
+Then(/^отображается товар "([^"]*)"$/, async (product) => {
+    await browser.waitUntil(async () => {
+        return await (await $(selectors.ProductName)).getText() == product
+    })
+})
+
+Then(/^отображается импут с кол-ом "([^"]*)"$/, async (quantity) => {
+    await browser.waitUntil(async () => {
+        return await (await $(selectors.Quantity)).getValue() == quantity
+    })
+})
+
+Then(/^нажимаем на кнопку удалить$/, async () => {
+    await (await $(selectors.PopUpButtons.Delete)).click()
+});
+
+Then(/^отображается сообщение "([^"]*)"$/, async (text) => {
+    await browser.waitUntil(async () => {
+        return await (await $(selectors.CheckoutText)).getText() == text
+    })
+})
