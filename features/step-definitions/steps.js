@@ -9,6 +9,11 @@ const Urlobj = new Map([
     ["black", "black"],
 
 ])
+
+const cardsBig = "a[class='product-article-list__card-with-image wide-card']"
+const cardSmall = "a[class='product-article-list__card-with-image ']"
+
+ 
 const selectors = {
     tariffsCard: (tariffs) => `//h3[text()='${tariffs}']`,
     header: "div.h1",
@@ -20,6 +25,11 @@ const selectors = {
     ProductName: "span.order-item-2__product-name",
     Quantity: "input.text-field.count",
     CheckoutText: "span.text",
+    Promotions: "a[href='/promotions']",
+    // cardSmall: "a[class='product-article-list__card-with-image ']",
+    // cardsBig : "a[class='product-article-list__card-with-image wide-card']",
+
+
     PopUpButtons: {
         Enter: "//a[@class='btn btn-black']",
         Connect: "//a[@class='btn space-holder-xs-0']",
@@ -27,6 +37,8 @@ const selectors = {
         Close: "a.icon-close",
         Continue: "//a[@class='btn']",
         Delete: "button.order-item-2__item-remove.icon-t2-trash-24"
+    
+
         
     },
     buttonMobil: (smartfoon) => `//span[@class="title"][text()="${smartfoon}"]//..//..//div//div//a[@class="btn icon-basket"]`
@@ -124,5 +136,21 @@ Then(/^нажимаем на кнопку удалить$/, async () => {
 Then(/^отображается сообщение "([^"]*)"$/, async (text) => {
     await browser.waitUntil(async () => {
         return await (await $(selectors.CheckoutText)).getText() == text
+    })
+})
+
+Then(/^нажимаем на пункт меню Акции$/, async () => {
+    await (await $(selectors.Promotions)).click()
+});
+
+Then(/^отображается большая карточка в количестве "([^"]*)"$/, async (number) => {
+    await browser.waitUntil(async () => {
+        return await (await $$(cardsBig)).length == number
+    })
+})
+
+Then(/^отображается маленькая карточка в количестве > чем "([^"]*)"$/, async (number) => {
+    await browser.waitUntil(async () => {
+        return await (await $$(cardSmall)).length > number
     })
 })
