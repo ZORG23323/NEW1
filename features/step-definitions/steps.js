@@ -7,6 +7,8 @@ const Urlobj = new Map([
     ["смартфоны", "/shop/devices/smartphones"],
     ["корзина", "/shop/checkout"],
     ["black", "black"],
+    ["Мой онлайн+","/tariff/my-online-plus"],
+    ["Mixx","/mixx-max"]
 
 ])
 
@@ -17,7 +19,7 @@ const cardSmall = "a[class='product-article-list__card-with-image ']"
 const selectors = {
     tariffsCard: (tariffs) => `//h3[text()='${tariffs}']`,
     header: "div.h1",
-
+    
     GB: (quantity) => `//div[@class="lots-group-item"]//div//div//span[text()='${quantity}']`,
     priceLot: (price) => `//div[@class="amount"] [text()="${price}"]`,
     button: "a.btn.btn-black.btn-small",
@@ -26,8 +28,31 @@ const selectors = {
     Quantity: "input.text-field.count",
     CheckoutText: "span.text",
     Promotions: "a[href='/promotions']",
-    // cardSmall: "a[class='product-article-list__card-with-image ']",
-    // cardsBig : "a[class='product-article-list__card-with-image wide-card']",
+    paySim: "a[class=btn]",
+    Prodolgit:"a[class='btn submit btn-black']",
+    SpanPen: "span[class='ico icon-t2-edit-24']",
+    choose: "a[class='btn btn-small']",
+    blackTariff: "div[class='order-item-2__tariff-title']",
+    btnSettings: "a[href='/mixx-max/subscription-setup?pageParams=subscriptionId%3D415909834398']",
+    BtnX: "//div[text()='VK Музыка + онлайн-кинотеатр Wink и другие сервисы']//..//a",
+    cardText: "//*[@id='msSetup']/div/div[2]/div[1]/div[2]/div/div[2]/div[1]",
+    cardTariff: "//*[@id='msSetup']/div/div[2]/div[1]/div[2]/div/div[1]/div[2]/div[1]/div/div[1]/div/div[2]/span[2]",
+    cardText2: "//*[@id='msSetup']/div/div[2]/div[1]/div[2]/div/div[1]/div[2]/div[1]/div/div[1]/div/div[1]/div",
+    btnContin: "//*[@id='msSetup']/div/div[2]/div[2]/div/div/button",
+    h2PopUp: "//*[@id='messagePopup']/div/div/div/div/div[1]/div/h2",
+    pPopUp:"//*[@id='messagePopup']/div/div/div/div/div[2]/div/div[1]/div/div[1]/p[1]",
+    btnPlug:"//*[@id='messagePopup']/div/div/div/div/div[2]/div/div[2]/a[1]",
+    popUpTariff:"//*[@id='keycloakLoginModal']/div/div/div/div",
+    
+
+
+   
+    
+
+    
+    
+
+
 
 
     PopUpButtons: {
@@ -36,7 +61,12 @@ const selectors = {
         Cancel: "a.cancel",
         Close: "a.icon-close",
         Continue: "//a[@class='btn']",
-        Delete: "button.order-item-2__item-remove.icon-t2-trash-24"
+        Delete: "button.order-item-2__item-remove.icon-t2-trash-24",
+
+        
+     
+        
+       
     
 
         
@@ -154,3 +184,67 @@ Then(/^отображается маленькая карточка в коли�
         return await (await $$(cardSmall)).length > number
     })
 })
+
+Then(/^нажимаем на кнопку Купить SIM$/, async () => {
+    await (await $(selectors.paySim)).click()
+});
+
+Then(/^нажимаем на кнопку Продолжить$/, async () => {
+    await (await $(selectors.Prodolgit)).click()
+});
+
+Then(/^нажимаем изменить тариф$/, async () => {
+    await (await $(selectors.SpanPen)).click()
+});
+
+Then(/^нажимаем на первый тариф$/, async () => {
+    await (await $(selectors.choose)).click()
+});
+
+Then(/^проверяем что этот тариф "([^"]*)"$/, async (text) => {
+    await browser.waitUntil(async () => {
+        return await (await $(selectors.blackTariff)).getText() == text
+    })
+})
+
+Then(/^нажимам на кнопку настроить тарифа Mixx S$/, async () => {
+    await (await $(selectors.btnSettings)).click()
+});
+
+Then(/^удаляем подписку VK музыка$/, async () => {
+    await (await $(selectors.BtnX)).click()
+});
+
+Then(/^отображается карточка "([^"]*)"$/, async (text) => {
+    await browser.waitUntil(async () => {
+        return await (await $(selectors.cardText)).getText() == text
+    })
+})
+
+Then(/^добавляем карточку тарифа По другим правилам$/, async () => {
+    await (await $(selectors.cardTariff)).click()
+});
+
+Then(/^карточка тарифа исчезла "([^"]*)"$/, async (text) => {
+    await browser.waitUntil(async () => {
+        return await (await $(selectors.cardText2)).getText() < text
+    })
+})
+
+Then(/^нажимаем на кнопку Подключить$/, async () => {
+    await (await $(selectors.btnContin)).click()
+});
+
+Then(/^отображается Поп-ап с заголовком "([^"]*)"$/, async (text) => {
+    await browser.waitUntil(async () => {
+        return await (await $(selectors.h2PopUp)).getText() == text
+    })
+})
+
+Then(/^нажимаем на кнопку Подключить подписку$/, async () => {
+    await (await $(selectors.btnPlug)).click()
+});
+
+Then(/^отображается Поп-ап с авторизацией пользователя$/, async () => {
+    await (await $(selectors.PopUp)).waitForDisplayed()
+});
