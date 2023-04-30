@@ -248,3 +248,14 @@ Then(/^нажимаем на кнопку Подключить подписку$
 Then(/^отображается Поп-ап с авторизацией пользователя$/, async () => {
     await (await $(selectors.PopUp)).waitForDisplayed()
 });
+
+Then(/^Нажимаем на Оплата и доставка в конце страницы$/, async () => {
+    await (await $(selectors.aPayDelivery)).click()
+});
+
+Then(/^Нажимаем на Правила продажи товаров в интернет-магазине Tele2$/, async () => {
+    await (await $(selectors.btnSalesRules)).click()
+});
+
+
+console.log(document.querySelector(text1).textContent)
