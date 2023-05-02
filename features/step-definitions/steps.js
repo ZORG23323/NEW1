@@ -43,10 +43,9 @@ const selectors = {
     pPopUp:"//*[@id='messagePopup']/div/div/div/div/div[2]/div/div[1]/div/div[1]/p[1]",
     btnPlug:"//*[@id='messagePopup']/div/div/div/div/div[2]/div/div[2]/a[1]",
     popUpTariff:"//*[@id='keycloakLoginModal']/div/div/div/div",
-    
-
-
-   
+    text1:'//*[@id="agreementModal"]/div/div[2]/div/div[2]/p[27]',
+    aPayDelivery:"//*[@id='root']/div/div[1]/div/div/div/div/div[3]/div/div/div/div/section/footer/section[2]/div/div/div[4]/div[2]/div[1]/a[3]",
+    btnSalesRules:"//*[@id='root']/div/div[1]/div/div/div/div/div[2]/div/div/ul[1]/li[3]/button",
     
 
     
@@ -62,14 +61,6 @@ const selectors = {
         Close: "a.icon-close",
         Continue: "//a[@class='btn']",
         Delete: "button.order-item-2__item-remove.icon-t2-trash-24",
-
-        
-     
-        
-       
-    
-
-        
     },
     buttonMobil: (smartfoon) => `//span[@class="title"][text()="${smartfoon}"]//..//..//div//div//a[@class="btn icon-basket"]`
 
@@ -239,7 +230,7 @@ Then(/^отображается Поп-ап с заголовком "([^"]*)"$/,
     await browser.waitUntil(async () => {
         return await (await $(selectors.h2PopUp)).getText() == text
     })
-})
+});
 
 Then(/^нажимаем на кнопку Подключить подписку$/, async () => {
     await (await $(selectors.btnPlug)).click()
@@ -257,5 +248,13 @@ Then(/^Нажимаем на Правила продажи товаров в и�
     await (await $(selectors.btnSalesRules)).click()
 });
 
+Then(/^Выводим на экран текст пункта 1.18$/, async () => {
+console.log(await $(selectors.text1).getText())
+console.log('111111111111111111111111111111111111111111111111111111111111111111111111111111')
+});
 
-console.log(document.querySelector(text1).textContent)
+Then(/^Провеяем правильность абзаца "([^"]*)"$/, async (text) => {
+    await browser.waitUntil(async () => {
+        return await (await $(selectors.text1)).getText() == text
+    })
+})
