@@ -1,5 +1,4 @@
-
-
+import { $ } from '@wdio/globals'
 import Page from './page.js';
 
 /**
@@ -18,7 +17,7 @@ class LoginPage extends Page {
     }
 
     get btnSubmit () {
-        return $('button.radius');
+        return $('button[type="submit"]');
     }
 
     /**
