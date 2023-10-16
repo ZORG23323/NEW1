@@ -25,4 +25,4 @@ Feature: It java to js
 }
       """
      When I receive a response
-     Then I expect the response to have the status 200
+     Then I expect the response to have the status 200 
