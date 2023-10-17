@@ -1,6 +1,7 @@
-Feature: It java to js
+@smoke
+Feature: Verify billing
 
-@test97
+@test96
   Scenario: Get A Pokemon
   Given I make a GET request to https://pokeapi.co/api/v2/pokemon/ditto
   When I receive a response
@@ -13,7 +14,6 @@ Feature: It java to js
     "url": "https://pokeapi.co/api/v2/pokemon-species/132/"
   } 
     """
-
 @test97
   Scenario: Create A User
     Given I make a POST request to https://automationintesting.online/auth/login

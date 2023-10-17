@@ -4,6 +4,9 @@
   "description": "Boilerplate project to run REST API tests with Cucumber &amp; Pactum",
   "main": "index.js",
   "scripts": {
+    "test:tag1": "cucumber-js --tags @test96",
+    "test:tag2": "cucumber-js --tags @test97",
+    "test:parallel": "npm run test:tag1 & npm run test:tag2",
     "test": "cucumber-js"
   },
   "repository": {
@@ -18,7 +21,15 @@
   },
   "homepage": "https://github.com/pactumjs/pactum-cucumber-boilerplate#readme",
   "dependencies": {
-    "@cucumber/cucumber": "^9.5.1",
-    "pactum": "latest"
+    "@cucumber/cucumber": "^9.6.0",
+    "pactum": "latest",
+    "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "@reportportal/agent-js-cucumber": "^5.2.2",
+    "@reportportal/client-javascript": "^5.0.14",
+    "cucumber": "^6.0.7",
+    "cucumber-html-reporter": "^6.0.0",
+    "cucumber-parallel": "^2.0.3"
   }
 }

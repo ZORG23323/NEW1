@@ -1,5 +1,9 @@
 const pactum = require('pactum');
 const { Given, When, Then, Before, After } = require('@cucumber/cucumber');
+const rp = require('@reportportal/client-javascript');
+let { setWorldConstructor } = require('@cucumber/cucumber');
+let { RPWorld } = require('@reportportal/agent-js-cucumber');
+setWorldConstructor(RPWorld);
 
 let spec = pactum.spec();
 
