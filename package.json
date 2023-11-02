@@ -6,7 +6,8 @@
   "scripts": {
     "test:tag1": "cucumber-js --tags @test96",
     "test:tag2": "cucumber-js --tags @test97",
-    "test:parallel": "npm run test:tag1 & npm run test:tag2",
+    "test:privet": "npm run test:tag1 & npm run test:tag2",
+    "test:ONE": "cucumber-js --config cucumber.json",
     "test": "cucumber-js"
   },
   "repository": {
