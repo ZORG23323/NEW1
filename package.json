@@ -1,36 +1,20 @@
 {
-  "name": "pactum-cucumber-boilerplate",
-  "version": "1.0.0",
-  "description": "Boilerplate project to run REST API tests with Cucumber &amp; Pactum",
-  "main": "index.js",
   "scripts": {
-    "test:tag1": "cucumber-js --tags @test96",
-    "test:tag2": "cucumber-js --tags @test97",
-    "test:privet": "npm run test:tag1 & npm run test:tag2",
-    "test:ONE": "cucumber-js --config cucumber.json",
-    "test": "cucumber-js"
+    "example:simpleTest": "cucumber-js features/ --require=features/**/*.js",
+    "example:simpleTestWithRetries": "cucumber-js features/simpleFeature/ --require=features/simpleFeature/**/*.js --retry 2",
+    "example:seleniumWebdriverTest": "cucumber-js features/webdriverIntegrationFeature/ --require=features/webdriverIntegrationFeature/**/*.js",
+    "example:attachmentTest": "cucumber-js features/attachments/ --require=features/attachments/**/*.js",
+    "example:descriptionsTest": "cucumber-js features/descriptions/ --require=features/descriptions/**/*.js",
+    "example:logsTest": "cucumber-js features/logs  --require=features/logs/**/*.js",
+    "example:testCaseIdTest": "cucumber-js features/testCaseId --require=features/testCaseId/**/*.js",
+    "example:attributesTest": "cucumber-js features/attributes --require=features/attributes/**/*.js",
+    "example:statusesTest": "cucumber-js features/statuses --require=features/statuses/**/*.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/pactumjs/pactum-cucumber-boilerplate.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/pactumjs/pactum-cucumber-boilerplate/issues"
-  },
-  "homepage": "https://github.com/pactumjs/pactum-cucumber-boilerplate#readme",
   "dependencies": {
-    "@cucumber/cucumber": "^9.6.0",
-    "pactum": "latest",
-    "yargs": "^17.7.2"
-  },
-  "devDependencies": {
+    "@cucumber/cucumber": "^9.3.0",
     "@reportportal/agent-js-cucumber": "^5.2.2",
-    "@reportportal/client-javascript": "^5.0.14",
-    "cucumber": "^6.0.7",
-    "cucumber-html-reporter": "^6.0.0",
-    "cucumber-parallel": "^2.0.3"
+    "chromedriver": "*",
+    "pactum": "^3.5.1",
+    "selenium-webdriver": "^3.6.0"
   }
 }

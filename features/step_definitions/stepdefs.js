@@ -1,9 +1,5 @@
 const pactum = require('pactum');
 const { Given, When, Then, Before, After } = require('@cucumber/cucumber');
-const rp = require('@reportportal/client-javascript');
-let { setWorldConstructor } = require('@cucumber/cucumber');
-let { RPWorld } = require('@reportportal/agent-js-cucumber');
-setWorldConstructor(RPWorld);
 
 let spec = pactum.spec();
 
@@ -69,6 +65,8 @@ Then(/^I expect response to match a json snapshot (.*)$/, async function (name) 
 
 Then('I expect the response to have the status {int}', function (code) {
   spec.response().should.have.status(code);
+  assert.equal("this.actualAnswer", "expectedAnswer");
+  this.actualAnswer = 'Nope';
 });
 
 Then(/^I expect response header (.*) should be (.*)$/, function (key, value) {
@@ -125,6 +123,8 @@ Then('I expect response time should be less than {int} ms', function (ms) {
 
 Then(/^I store response at (.*) as (.*)$/, function (path, name) {
   spec.stores(name, path);
+  this.actualAnswer = 'Nope';
+  assert.equal(this.actualAnswer, "expectedAnswer");
 });
 
 After(() => {
