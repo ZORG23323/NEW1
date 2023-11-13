@@ -1,7 +1,7 @@
-@smoke
+@1111
 Feature: Verify billing
 
-@test96
+@smoke
   Scenario: Get A Pokemon
   Given I make a GET request to https://pokeapi.co/api/v2/pokemon/ditto
   When I receive a response

@@ -65,8 +65,8 @@ Then(/^I expect response to match a json snapshot (.*)$/, async function (name) 
 
 Then('I expect the response to have the status {int}', function (code) {
   spec.response().should.have.status(code);
-  assert.equal("this.actualAnswer", "expectedAnswer");
-  this.actualAnswer = 'Nope';
+  // assert.equal("this.actualAnswer", "expectedAnswer");
+  // this.actualAnswer = 'Nope';
 });
 
 Then(/^I expect response header (.*) should be (.*)$/, function (key, value) {

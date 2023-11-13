@@ -8,7 +8,8 @@
     "example:logsTest": "cucumber-js features/logs  --require=features/logs/**/*.js",
     "example:testCaseIdTest": "cucumber-js features/testCaseId --require=features/testCaseId/**/*.js",
     "example:attributesTest": "cucumber-js features/attributes --require=features/attributes/**/*.js",
-    "example:statusesTest": "cucumber-js features/statuses --require=features/statuses/**/*.js"
+    "example:statusesTest": "cucumber-js features/statuses --require=features/statuses/**/*.js",
+    "test": "cucumber-js"
   },
   "dependencies": {
     "@cucumber/cucumber": "^9.3.0",
@@ -16,5 +17,9 @@
     "chromedriver": "*",
     "pactum": "^3.5.1",
     "selenium-webdriver": "^3.6.0"
+  },
+  "devDependencies": {
+    "cucumber": "^6.0.7",
+    "cucumber-html-reporter": "^7.1.1"
   }
 }
