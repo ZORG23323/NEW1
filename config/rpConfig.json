@@ -11,5 +11,12 @@
     }
   ],
   "takeScreenshot": "onFailure",
-  "scenarioBasedStatistics": true
+  "scenarioBasedStatistics": true,
+  "restClientConfig": {
+    "proxy": {
+      "protocol": "http",
+      "host": "t2ru-ds-proxy-01.corp.tele2.ru",
+      "port": 8080
+    }
+  }
 }

@@ -124,10 +124,6 @@ Then('I expect response time should be less than {int} ms', function (ms) {
     spec.response().should.have.responseTimeLessThan(ms)
 });
 
-
-
-
-
 Then('AB', () => {
     spec.withMethod('GET')
         .withPath('https://pokeapi.co/api/v2/pokemon/ditto')
@@ -138,11 +134,6 @@ Then('cdcd', () => {
     spec.response().should.have.status(200);
 
 });
-
-
-
-
-
 
 After(() => {
     spec.end();
