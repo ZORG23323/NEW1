@@ -10,7 +10,7 @@ Before(() => {
     spec = pactum.spec();
 });
 
-Given(/^I make a (.*) request to (.*)$/, function (method, endpoint) {
+Given(/^I make a (.*) request to "(.*)"$/, function (method, endpoint) {
     spec[method.toLowerCase()](endpoint);
 });
 
@@ -62,7 +62,7 @@ When('I receive a response', async function () {
     await spec.toss();
 });
 
-Then(/^I expect response to match a json snapshot (.*)$/, async function (name) {
+Then(/^I expect response to match a json snapshot "(.*).json"$/, async function (name) {
     spec.response().should.have.jsonSnapshot(name);
 });
 
@@ -88,7 +88,7 @@ Then(/^I expect response should have a json$/, function (json) {
     spec.response().should.have.json(JSON.parse(json));
 });
 
-Then(/^I expect response should have a json at (.*)$/, function (path, value) {
+Then(/^I expect response should have a json at "(.*)"$/, function (path, value) {
     spec.response().should.have.json(path, JSON.parse(value));
 });
 
@@ -116,7 +116,7 @@ Then(/^I expect response body should contain (.*)$/, function (value) {
     spec.response().should.have.bodyContains(value);
 });
 
-Then('I expect response should have {string}', function (handler) {
+Then('I expect response time should be less than {int} ms', function (handler) {
     spec.response().should.have._(handler);
 });
 
